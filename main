@@ -1,0 +1,28 @@
+import feedly
+import preprocess
+import topic_extraction
+import source_attribution
+import stock_ticker_extraction
+import sector_relevance
+
+# initialize feedly client
+client = feedly.FeedlyClient(token="YOUR_FEEDLY_API_TOKEN_HERE")
+
+# fetch articles from feedly API
+articles = client.fetch_articles()
+
+# preprocess articles
+preprocessed_articles = preprocess.preprocess_articles(articles)
+
+# extract topics from preprocessed articles
+topics = topic_extraction.extract_topics(preprocessed_articles)
+
+# attribute sources to topics
+topics_with_sources = source_attribution.attribute_sources(topics, articles)
+
+# extract stock tickers and sector relevance for topics
+topics_with_tickers_and_sectors = stock_ticker_extraction.extract_tickers_and_sectors(topics_with_sources)
+
+# print the resulting topics with sources and tickers
+for topic in topics_with_tickers_and_sectors:
+    print(topic)
